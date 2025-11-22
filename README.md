@@ -68,3 +68,43 @@ ping google.com -c1
 ```
 
 `FROM... RUN...` це частини, які називаються `Dockerfile` і використовуються, щоб визначити ЯК білдити образ контейнера.
+
+## Збереження даних додатком
+
+Щоб наші додатки могли безпечно зберігати дані (БД, user data, ...) навіть якщо контейнер знищений або перестворений. Для цього використовувати `Volume` і `mounts`.
+
+```bash
+docker run -it --rm ubuntu:22.04
+
+mkdir my-data
+
+echo "Hello from the container!" > /my-data/hello.txt
+
+cat my-data/hello.txt
+exit
+
+# There is no anymore our file :(
+```
+
+### 1. Volume mounts
+
+```bash
+docker volume create my-volume
+docker run -it --rm --mount source=my-volume,destination=/my-data/ ubuntu:22.04
+# Similar but shorter
+docker run -it --rm my-volume:/my-data ubuntu:22.04
+```
+
+Створити контейнер і замаунтити існуючий волюм для збережання файла
+
+```bash
+docker run -it --rm --mount source=my-volume,destination=/my-data/ ubuntu:22.04
+```
+
+### 2. Bind mounts
+
+Easy manage, easy visibility, but low performance than volumes
+
+```bash
+docker run -it --rm --mount type=bind,source="${PWD}"/my-data,destination=/my-data ubuntu:22.04
+```

@@ -4,7 +4,9 @@ title: container
 tags:
   - docker
 aliases:
+  - Образ контейнера
+  - container image
+  - контейнер
 ---
 > [!tldr]
-> A **container image** is a lightweight, standalone, executable package of software that includes everything needed to run an application.
-
+> **Образ контейнера** це легкий, окремий виконуваний пакет ПЗ, який містить усе необхідне для запуску програми.
